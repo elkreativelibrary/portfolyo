@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Print Animation - From Figma</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 430px;
+            height: 932px;
+            position: relative;
+            background: white;
+            overflow: hidden;
+        }
+
+        /* Home Indicator */
+        .home-indicator {
+            width: 429px;
+            height: 25px;
+            padding: 10px;
+            left: 1px;
+            top: 907px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .home-indicator-bar {
+            width: 135px;
+            height: 5.06px;
+            background: #606060;
+            border-radius: 5px;
+        }
+
+        /* Printer Bottom */
+        .printer-bottom {
+            width: 382px;
+            height: 45px;
+            left: 24px;
+            top: 194px;
+            position: absolute;
+            background: linear-gradient(180deg, #303030 0%, #212121 100%);
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-left: 2px #3A3A3A solid;
+            border-right: 2px #3A3A3A solid;
+            border-bottom: 2px #3A3A3A solid;
+        }
+
+        /* Printer Slot Bottom Part */
+        .slot-bottom {
+            width: 326px;
+            height: 18px;
+            left: 52px;
+            top: 194px;
+            position: absolute;
+            background: #141414;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-left: 1px #3C3C3C solid;
+            border-right: 1px #3C3C3C solid;
+            border-bottom: 1px #3C3C3C solid;
+        }
+
+        /* Receipt */
+        .receipt {
+            width: 295px;
+            height: 447px;
+            left: 68px;
+            position: absolute;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+            background: white;
+            cursor: grab;
+            transition: none;
+            top: -500px; /* Start hidden above */
+        }
+
+        .receipt.active {
+            cursor: grabbing;
+        }
+
+        .receipt-inner {
+            width: 295px;
+            height: 447px;
+            padding: 13px 15px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .receipt-content {
+            width: 267px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .receipt-title {
+            text-align: center;
+            color: #1C1C1C;
+            font-size: 28px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .receipt-info {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #1C1C1C;
+            font-size: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .items-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #1C1C1C;
+            font-size: 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .items-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #1C1C1C;
+            font-size: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .total-row {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #1C1C1C;
+            font-size: 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .footer-text {
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #1C1C1C;
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        /* Printer Top */
+        .printer-top {
+            width: 382px;
+            height: 72px;
+            left: 24px;
+            top: 123px;
+            position: absolute;
+            background: linear-gradient(180deg, #212121 0%, #303030 100%);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-left: 2px #3A3A3A solid;
+            border-top: 2px #3A3A3A solid;
+            border-right: 2px #3A3A3A solid;
+        }
+
+        /* Printer Slot Top Part with Shadow */
+        .slot-top-shadow {
+            width: 326px;
+            height: 18px;
+            left: 52px;
+            top: 177px;
+            position: absolute;
+            background: #141414;
+            box-shadow: 0px 14px 36px 30px rgba(0, 0, 0, 0.32);
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .slot-top {
+            width: 326px;
+            height: 18px;
+            left: 52px;
+            top: 177px;
+            position: absolute;
+            background: #0F0F0F;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-left: 1px #282828 solid;
+            border-right: 1px #282828 solid;
+            border-bottom: 1px #282828 solid;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            width: 430px;
+            height: 123px;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+            background: white;
+        }
+
+        /* Get Invoice Button */
+        .get-invoice-btn {
+            width: 381px;
+            height: 58px;
+            padding: 10px;
+            left: 25px;
+            top: 817px;
+            position: absolute;
+            background: #1C1C1C;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .get-invoice-btn:hover {
+            background: #2d2d2d;
+            transform: translateY(-2px);
+        }
+
+        .get-invoice-btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-text {
+            text-align: center;
+            color: #F7F7F7;
+            font-size: 18px;
+            font-family: 'Satoshi Variable', -apple-system, sans-serif;
+            font-weight: 400;
+            line-height: 18px;
+        }
+
+        .get-invoice-btn.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Header Content */
+        .header-content {
+            width: 430px;
+            padding-bottom: 16px;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            height: 44px;
+            position: relative;
+        }
+
+        .time {
+            width: 54px;
+            left: 19.89px;
+            top: 14px;
+            position: absolute;
+            text-align: center;
+            color: black;
+            font-size: 15px;
+            font-family: 'SF Pro Text', -apple-system, sans-serif;
+            font-weight: 600;
+            line-height: 18px;
+        }
+
+        .battery {
+            width: 18px;
+            height: 7.67px;
+            left: 393px;
+            top: 19.08px;
+            position: absolute;
+            background: black;
+            border-radius: 1.60px;
+        }
+
+        .nav-bar {
+            padding: 8px 20px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            width: 24px;
+            height: 24px;
+            position: relative;
+        }
+
+        .back-arrow {
+            width: 6.50px;
+            height: 13px;
+            left: 8.75px;
+            top: 6px;
+            position: absolute;
+            border-left: 1.50px solid #242424;
+            border-bottom: 1.50px solid #242424;
+            transform: rotate(45deg);
+        }
+
+        .nav-title {
+            text-align: center;
+            color: #303030;
+            font-size: 18px;
+            font-family: 'Satoshi Variable', -apple-system, sans-serif;
+            font-weight: 400;
+            line-height: 25px;
+        }
+
+        .nav-spacer {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home Indicator -->
+        <div class="home-indicator">
+            <div class="home-indicator-bar"></div>
+        </div>
+
+        <!-- Printer Bottom -->
+        <div class="printer-bottom"></div>
+        <div class="slot-bottom"></div>
+
+        <!-- Receipt (Hidden Initially) -->
+        <div class="receipt" id="receipt">
+            <div class="receipt-inner">
+                <div class="receipt-content">
+                    <div class="receipt-title">ELSARIHAN</div>
+                    
+                    <div class="receipt-info">
+                        <div class="info-row">
+                            <span>DATE :</span>
+                            <span>NOVEMBER 22 - 25</span>
+                        </div>
+                        <div class="info-row">
+                            <span>LOC :</span>
+                            <span>ITAOSY F15</span>
+                        </div>
+                    </div>
+
+                    <div style="height: 10px;"></div>
+
+                    <div class="items-header">
+                        <span>ITEM</span>
+                        <span>PRICE</span>
+                    </div>
+
+                    <div class="items-list">
+                        <div class="item-row">
+                            <span>LOVE</span>
+                            <span>15k MGA</span>
+                        </div>
+                        <div class="item-row">
+                            <span>Happiness</span>
+                            <span>15k MGA</span>
+                        </div>
+                        <div class="item-row">
+                            <span>Vibes</span>
+                            <span>15k MGA</span>
+                        </div>
+                        <div class="item-row">
+                            <span>Energy</span>
+                            <span>15k MGA</span>
+                        </div>
+                        <div class="item-row">
+                            <span>look good</span>
+                            <span>15k MGA</span>
+                        </div>
+                    </div>
+
+                    <div style="height: 10px;"></div>
+
+                    <div class="total-row">
+                        <span>Total</span>
+                        <span>75k mga</span>
+                    </div>
+
+                    <div class="footer-text">
+                        <div class="footer-brand">
+                            <span>aureando</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Printer Top -->
+        <div class="printer-top"></div>
+        <div class="slot-top-shadow"></div>
+        <div class="slot-top"></div>
+
+        <!-- Header Bar Background -->
+        <div class="header-bar"></div>
+
+        <!-- Get Invoice Button -->
+        <button class="get-invoice-btn" id="getInvoiceBtn">
+            <div class="btn-text">Get invoice</div>
+        </button>
+
+        <!-- Header Content -->
+        <div class="header-content">
+            <div class="status-bar">
+                <div class="time">9:41</div>
+                <div class="battery"></div>
+            </div>
+            <div class="nav-bar">
+                <div class="back-btn">
+                    <div class="back-arrow"></div>
+                </div>
+                <div class="nav-title">Invoice</div>
+                <div class="nav-spacer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const receipt = document.getElementById('receipt');
+        const btn = document.getElementById('getInvoiceBtn');
+        
+        let isDragging = false;
+        let startY = 0;
+        let currentTop = -500;
+        let isPrinted = false;
+
+        // Animation curves from Figma
+        const easing = 'cubic-bezier(0.25, 0, 0.8, 1)';
+        
+        // Click button to start printing
+        btn.addEventListener('click', () => {
+            isPrinted = true;
+            btn.classList.add('hidden');
+            
+            // Animate receipt sliding out from slot
+            receipt.style.transition = `top 1s ${easing}`;
+            receipt.style.top = '177px'; // Position it coming out of the slot
+            currentTop = 177;
+        });
+
+        // Drag functionality
+        function handleStart(e) {
+            if (!isPrinted) return;
+            
+            isDragging = true;
+            receipt.classList.add('active');
+            receipt.style.transition = 'none';
+            
+            startY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+            currentTop = parseInt(receipt.style.top) || 177;
+        }
+
+        function handleMove(e) {
+            if (!isDragging) return;
+            
+            e.preventDefault();
+            const clientY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
+            const deltaY = clientY - startY;
+            
+            // Allow dragging down, limit dragging up
+            const newTop = Math.max(100, currentTop + deltaY);
+            receipt.style.top = newTop + 'px';
+        }
+
+        function handleEnd(e) {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            receipt.classList.remove('active');
+            receipt.style.transition = `top 1s ${easing}`;
+            
+            const finalTop = parseInt(receipt.style.top);
+            
+            // If dragged down past threshold, slide away
+            if (finalTop > 400) {
+                receipt.style.top = '1000px';
+                
+                setTimeout(() => {
+                    receipt.style.transition = 'none';
+                    receipt.style.top = '-500px';
+                    btn.classList.remove('hidden');
+                    isPrinted = false;
+                    currentTop = -500;
+                }, 1000);
+            } else {
+                // Snap back to printed position
+                receipt.style.top = '177px';
+                currentTop = 177;
+            }
+        }
+
+        // Mouse events
+        receipt.addEventListener('mousedown', handleStart);
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('mouseup', handleEnd);
+
+        // Touch events
+        receipt.addEventListener('touchstart', handleStart, { passive: false });
+        document.addEventListener('touchmove', handleMove, { passive: false });
+        document.addEventListener('touchend', handleEnd);
+    </script>
+</body>
+</html>
