@@ -3,29 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Games | El's Creative Archive</title>
+  <title>Portfolio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
+  <!-- RoundedPixel font -->
   <style>
-    :root{
-      --bg: #9bcfcb;
-      --bg-grid: #8bc0bc;
-
-      --window: #f5f0dc;
-      --window-dark: #d8d0b4;
-      --window-shadow: #221b19;
-
-      --panel: #fffbea;
-      --mint: #9ed47a;
-      --teal: #45b8c6;
-      --pink: #efb6d0;
-      --peach: #f5c28b;
-
-      --text: #1b1614;
-      --outline: #1a1412;
+    @font-face {
+      font-family: 'RoundedPixel';
+      src: url('RoundedPixel7-DpRx.ttf') format('truetype');
     }
 
     *{
@@ -35,223 +19,177 @@
     }
 
     body{
-      font-family: "Press Start 2P", system-ui;
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.9;
-      padding: 24px;
-      background-image: url("images/mona.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
-
-    a{ color: inherit; text-decoration: none; }
-
-    img{
-      max-width: 100%;
-      display: block;
-      image-rendering: pixelated;
-    }
-
-    .site-shell{
-      max-width: 1280px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    @media (max-width: 980px){
-      .site-shell{ grid-template-columns: 1fr; }
-    }
-
-    .window{
-      background: var(--window);
-      border: 4px solid var(--outline);
-      box-shadow: 8px 8px 0 var(--window-shadow);
-    }
-
-    .window-bar{
+      font-family: 'RoundedPixel', monospace;
+      background: #f5f5f7;
+      color: #1C1C1C;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      background: var(--window-dark);
-      border-bottom: 4px solid var(--outline);
-      padding: 10px 12px;
-    }
-
-    .window-title{ font-size: 11px; line-height: 1.6; }
-    .window-buttons{ display: flex; gap: 8px; flex-shrink: 0; }
-
-    .dot{
-      width: 14px;
-      height: 14px;
-      border: 3px solid var(--outline);
-      background: #fffdf7;
-    }
-
-    .window-content{ padding: 18px; }
-    .sidebar-card{ margin-bottom: 20px; }
-    .folder-list{ display: grid; gap: 12px; margin-top: 6px; }
-
-    .folder-link{
-      display: block;
-      background: #fffbea;
-      border: 4px solid var(--outline);
-      padding: 14px;
-      font-size: 10px;
-      line-height: 1.7;
-      box-shadow: 4px 4px 0 var(--window-shadow);
-      transition: transform 0.12s ease;
-    }
-
-    .folder-link:hover{ transform: translate(-2px, -2px); }
-    .folder-link.active{ background: var(--peach); }
-
-    .page-stack{ display: grid; gap: 20px; }
-
-    .intro-text h1{ font-size: 16px; line-height: 1.8; margin-bottom: 14px; }
-    .intro-text p{ font-size: 9px; line-height: 2; margin-bottom: 10px; }
-
-    .gallery-grid{
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    @media (max-width: 900px){
-      .gallery-grid{ grid-template-columns: 1fr; }
-    }
-
-    .art-card{
-      background: var(--panel);
-      border: 4px solid var(--outline);
-      box-shadow: 6px 6px 0 var(--window-shadow);
-      overflow: hidden;
-    }
-
-    .art-thumb{
-      background: var(--teal);
-      border-bottom: 4px solid var(--outline);
-      min-height: 320px;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 14px;
+      padding: 40px 20px;
+    }
+
+    .container{
+      width: 430px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* HEADER (like receipt top) */
+    .header{
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    .subheader{
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    /* NAV */
+    .nav{
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    .nav a{
       text-decoration: none;
+      color: inherit;
+      padding: 6px 10px;
+      border-radius: 4px;
     }
 
-    .art-thumb.pink{ background: var(--pink); }
-    .art-thumb.mint{ background: var(--mint); }
-    .art-thumb.peach{ background: var(--peach); }
+    .nav a:hover{
+      background: #eaeaea;
+    }
 
-    .art-thumb img{
+    /* SECTION TITLE */
+    .section-title{
+      font-size: 18px;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* PROJECT LIST (receipt style) */
+    .project-list{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .project{
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      margin: -8px;
+      border-radius: 4px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s ease;
+    }
+
+    .project:hover{
+      background: #f0f0f0;
+    }
+
+    .project-title{
+      text-transform: uppercase;
+    }
+
+    .project-arrow{
+      opacity: 0.6;
+    }
+
+    /* IMAGE PREVIEW */
+    .preview{
       width: 100%;
-      height: 100%;
-      max-height: 520px;
-      object-fit: contain;
-      border: 4px solid var(--outline);
-      background: #fffdf7;
-      transition: transform 0.15s ease;
+      background: #ffffff;
+      padding: 10px;
+      box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
     }
 
-    .art-thumb:hover img{ transform: scale(1.03); }
+    .preview img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
-    .art-body{ padding: 16px; }
-    .art-body h3{ font-size: 11px; line-height: 1.8; margin-bottom: 10px; }
-    .art-body p{ font-size: 8px; line-height: 2; margin-bottom: 14px; min-height: 54px; }
+    /* FOOTER */
+    .footer{
+      text-align: center;
+      font-size: 13px;
+      text-transform: lowercase;
+      margin-top: 20px;
+    }
   </style>
 </head>
+
 <body>
 
-  <div class="site-shell">
+  <div class="container">
 
-    <aside>
-      <div class="window sidebar-card">
-        <div class="window-bar">
-          <div class="window-title">NAVIGATION</div>
-          <div class="window-buttons">
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </div>
-        </div>
-        <div class="window-content">
-          <nav class="folder-list">
-            <a class="folder-link" href="index.html">HOME</a>
-            <a class="folder-link" href="writing.html">LIBRARY</a>
-            <a class="folder-link active" href="games.html">GAME CONCEPTS</a>
-            <a class="folder-link" href="artwork.html">ARTWORK</a>
-            <a class="folder-link" href="misc.html">MISC</a>
-          </nav>
-        </div>
+    <!-- HEADER -->
+    <div>
+      <div class="header">
+        <span>portfolio</span>
+        <span>2026</span>
       </div>
-    </aside>
+      <div class="subheader">selected works</div>
+    </div>
 
-    <main class="page-stack">
-      <section class="window">
-        <div class="window-bar">
-          <div class="window-title">GAME_LIBRARY</div>
-          <div class="window-buttons">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </div>
-        </div>
-        <div class="window-content intro-text">
-          <h1>GAME CONCEPTS</h1>
-          <p>tiny experiments, personal projects </p>
-        </div>
-      </section>
+    <!-- NAV -->
+    <div class="nav">
+      <a href="index.html">← back</a>
+      <span>graphic designer</span>
+    </div>
 
-      <section class="window">
-        <div class="window-bar">
-          <div class="window-title">GAME_ITEMS</div>
-          <div class="window-buttons">
-            <span class="dot"></span>
-          </div>
-        </div>
-        <div class="window-content">
-          <div class="gallery-grid">
+    <!-- SECTION -->
+    <div class="section-title">
+      <span>projects</span>
+      <span>→</span>
+    </div>
 
-            <!-- GAME ITEM — copy this whole block to add a new game -->
-            <article class="art-card">
-              <a href="genshin_guesswho.html" class="art-thumb peach">
-                <img src="images/gwpreview.jpg" alt="Genshin Guess Who Preview">
-              </a>
-              <div class="art-body">
-                <h3>GENSHIN GUESS WHO</h3>
-                <p>a little guessing game prototype</p>
-              </div>
-            </article>
-            <!-- END GAME ITEM -->
-            <article class="art-card">
-              <a href="icons.html" class="art-thumb peach">
-                <img src="images/iconspre.jpg" alt="icons">
-              </a>
-              <div class="art-body">
-                <h3>icos draft </h3>
-                <p>prototype </p>
-              </div>
-            </article>
-            
-              <article class="art-card">
-              <a href="symbol_test_v2.html" class="art-thumb peach">
-                <img src="images/preblack.png" alt="preblack">
-              </a>
-              <div class="art-body">
-                <h3>icons testing game </h3>
-                <p>prototype for thesis </p>
-              </div>
-            </article>
+    <!-- PROJECT LIST -->
+    <div class="project-list">
 
-          </div>
-        </div>
-      </section>
-    </main>
+      <a href="genshin_guesswho.html" class="project">
+        <span class="project-title">genshin guess who</span>
+        <span class="project-arrow">→</span>
+      </a>
+
+      <div class="preview">
+        <img src="images/gwpreview.jpg" alt="">
+      </div>
+
+      <a href="icons.html" class="project">
+        <span class="project-title">icons draft</span>
+        <span class="project-arrow">→</span>
+      </a>
+
+      <div class="preview">
+        <img src="images/iconspre.jpg" alt="">
+      </div>
+
+      <a href="symbol_test_v2.html" class="project">
+        <span class="project-title">icons testing game</span>
+        <span class="project-arrow">→</span>
+      </a>
+
+      <div class="preview">
+        <img src="images/preblack.png" alt="">
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      elsarihan
+    </div>
 
   </div>
 
