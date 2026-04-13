@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio</title>
 
-  <!-- RoundedPixel font -->
   <style>
     @font-face {
       font-family: 'RoundedPixel';
@@ -35,7 +34,7 @@
       gap: 30px;
     }
 
-    /* HEADER (like receipt top) */
+    /* HEADER */
     .header{
       display: flex;
       justify-content: space-between;
@@ -75,48 +74,50 @@
       justify-content: space-between;
     }
 
-    /* PROJECT LIST (receipt style) */
-    .project-list{
+    /* GRID */
+    .grid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    /* CARD */
+    .card{
+      background: white;
+      box-shadow: 0px 10px 20px rgba(0,0,0,0.12);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover{
+      transform: translateY(-4px);
+    }
+
+    .card img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .card-body{
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
 
-    .project{
+    .card-title{
+      font-size: 16px;
+      text-transform: uppercase;
       display: flex;
       justify-content: space-between;
-      padding: 8px;
-      margin: -8px;
-      border-radius: 4px;
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.2s ease;
     }
 
-    .project:hover{
-      background: #f0f0f0;
-    }
-
-    .project-title{
-      text-transform: uppercase;
-    }
-
-    .project-arrow{
-      opacity: 0.6;
-    }
-
-    /* IMAGE PREVIEW */
-    .preview{
-      width: 100%;
-      background: #ffffff;
-      padding: 10px;
-      box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
-    }
-
-    .preview img{
-      width: 100%;
-      height: auto;
-      display: block;
+    .card-desc{
+      font-size: 13px;
+      opacity: 0.7;
     }
 
     /* FOOTER */
@@ -124,8 +125,9 @@
       text-align: center;
       font-size: 13px;
       text-transform: lowercase;
-      margin-top: 20px;
+      margin-top: 10px;
     }
+
   </style>
 </head>
 
@@ -148,41 +150,53 @@
       <span>graphic designer</span>
     </div>
 
-    <!-- SECTION -->
+    <!-- TITLE -->
     <div class="section-title">
       <span>projects</span>
       <span>→</span>
     </div>
 
-    <!-- PROJECT LIST -->
-    <div class="project-list">
+    <!-- CARDS -->
+    <div class="grid">
 
-      <a href="genshin_guesswho.html" class="project">
-        <span class="project-title">genshin guess who</span>
-        <span class="project-arrow">→</span>
-      </a>
-
-      <div class="preview">
+      <a href="genshin_guesswho.html" class="card">
         <img src="images/gwpreview.jpg" alt="">
-      </div>
-
-      <a href="icons.html" class="project">
-        <span class="project-title">icons draft</span>
-        <span class="project-arrow">→</span>
+        <div class="card-body">
+          <div class="card-title">
+            <span>genshin guess who</span>
+            <span>→</span>
+          </div>
+          <div class="card-desc">
+            a little guessing game prototype
+          </div>
+        </div>
       </a>
 
-      <div class="preview">
+      <a href="icons.html" class="card">
         <img src="images/iconspre.jpg" alt="">
-      </div>
-
-      <a href="symbol_test_v2.html" class="project">
-        <span class="project-title">icons testing game</span>
-        <span class="project-arrow">→</span>
+        <div class="card-body">
+          <div class="card-title">
+            <span>icons draft</span>
+            <span>→</span>
+          </div>
+          <div class="card-desc">
+            prototype exploration
+          </div>
+        </div>
       </a>
 
-      <div class="preview">
+      <a href="symbol_test_v2.html" class="card">
         <img src="images/preblack.png" alt="">
-      </div>
+        <div class="card-body">
+          <div class="card-title">
+            <span>icons testing game</span>
+            <span>→</span>
+          </div>
+          <div class="card-desc">
+            prototype for thesis
+          </div>
+        </div>
+      </a>
 
     </div>
 
