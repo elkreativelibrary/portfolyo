@@ -23,32 +23,48 @@
         }
 
         body {
-            font-family: 'RoundedPixel';
-            src: url('RoundedPixel7-DpRx.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
+            font-family: 'RoundedPixel', 'JetBrains Mono', monospace;
             background: #f5f5f7;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
+            padding: 0;
         }
 
         .container {
-            width: 430px;
-            height: 932px;
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            max-height: 932px;
             position: relative;
             background: #f5f5f7;
             overflow: hidden;
         }
 
+        /* Responsive scaling variables */
+        :root {
+            --scale: 1;
+            --printer-width: 382px;
+            --printer-top-height: 72px;
+            --printer-bottom-height: 45px;
+            --slot-width: 326px;
+            --slot-height: 18px;
+            --receipt-width: 295px;
+            --receipt-height: 447px;
+            --header-height: 123px;
+            --button-width: 381px;
+            --button-height: 58px;
+        }
+
         /* Printer Bottom */
         .printer-bottom {
-            width: 382px;
-            height: 45px;
-            left: 24px;
-            top: 194px;
+            width: var(--printer-width);
+            height: var(--printer-bottom-height);
+            left: 50%;
+            transform: translateX(-50%);
+            top: calc(var(--header-height) + var(--printer-top-height) - 1px);
             position: absolute;
             background: linear-gradient(180deg, #303030 0%, #212121 100%);
             border-bottom-right-radius: 20px;
@@ -60,10 +76,11 @@
 
         /* Printer Slot Bottom Part */
         .slot-bottom {
-            width: 326px;
-            height: 18px;
-            left: 52px;
-            top: 194px;
+            width: var(--slot-width);
+            height: var(--slot-height);
+            left: 50%;
+            transform: translateX(-50%);
+            top: calc(var(--header-height) + var(--printer-top-height) - 1px);
             position: absolute;
             background: #141414;
             border-bottom-right-radius: 10px;
@@ -75,9 +92,10 @@
 
         /* Receipt */
         .receipt {
-            width: 295px;
-            height: 447px;
-            left: 68px;
+            width: var(--receipt-width);
+            height: var(--receipt-height);
+            left: 50%;
+            transform: translateX(-50%);
             position: absolute;
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
             background: white;
@@ -91,8 +109,8 @@
         }
 
         .receipt-inner {
-            width: 295px;
-            height: 447px;
+            width: 100%;
+            height: 100%;
             padding: 13px 15px;
             position: absolute;
             display: flex;
@@ -101,7 +119,7 @@
         }
 
         .receipt-content {
-            width: 267px;
+            width: calc(100% - 28px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -126,7 +144,7 @@
             justify-content: space-between;
             align-items: center;
             color: #1C1C1C;
-            font-size: 16px;
+            font-size: clamp(12px, 3.5vw, 16px);
             font-family: 'RoundedPixel', 'JetBrains Mono', monospace;
             font-weight: 500;
             text-transform: uppercase;
@@ -138,7 +156,7 @@
             justify-content: space-between;
             align-items: center;
             color: #1C1C1C;
-            font-size: 18px;
+            font-size: clamp(14px, 4vw, 18px);
             font-family: 'RoundedPixel', 'JetBrains Mono', monospace;
             font-weight: 500;
             text-transform: uppercase;
@@ -156,7 +174,7 @@
             justify-content: space-between;
             align-items: center;
             color: #1C1C1C;
-            font-size: 16px;
+            font-size: clamp(12px, 3.5vw, 16px);
             font-family: 'RoundedPixel', 'JetBrains Mono', monospace;
             font-weight: 500;
             text-transform: uppercase;
@@ -177,7 +195,7 @@
             justify-content: space-between;
             align-items: center;
             color: #1C1C1C;
-            font-size: 18px;
+            font-size: clamp(14px, 4vw, 18px);
             font-family: 'RoundedPixel', 'JetBrains Mono', monospace;
             font-weight: 500;
             text-transform: uppercase;
@@ -198,7 +216,7 @@
             justify-content: center;
             gap: 4px;
             color: #1C1C1C;
-            font-size: 13px;
+            font-size: clamp(11px, 3vw, 13px);
             font-family: 'RoundedPixel', 'JetBrains Mono', monospace;
             font-weight: 500;
             text-transform: uppercase;
@@ -206,10 +224,11 @@
 
         /* Printer Top */
         .printer-top {
-            width: 382px;
-            height: 72px;
-            left: 24px;
-            top: 123px;
+            width: var(--printer-width);
+            height: var(--printer-top-height);
+            left: 50%;
+            transform: translateX(-50%);
+            top: var(--header-height);
             position: absolute;
             background: linear-gradient(180deg, #212121 0%, #303030 100%);
             border-top-left-radius: 20px;
@@ -221,10 +240,11 @@
 
         /* Printer Slot Top Part with Shadow */
         .slot-top-shadow {
-            width: 326px;
-            height: 18px;
-            left: 52px;
-            top: 177px;
+            width: var(--slot-width);
+            height: var(--slot-height);
+            left: 50%;
+            transform: translateX(-50%);
+            top: calc(var(--header-height) + var(--printer-top-height) - 18px);
             position: absolute;
             background: #141414;
             box-shadow: 0px 14px 36px 30px rgba(0, 0, 0, 0.32);
@@ -233,10 +253,11 @@
         }
 
         .slot-top {
-            width: 326px;
-            height: 18px;
-            left: 52px;
-            top: 177px;
+            width: var(--slot-width);
+            height: var(--slot-height);
+            left: 50%;
+            transform: translateX(-50%);
+            top: calc(var(--header-height) + var(--printer-top-height) - 18px);
             position: absolute;
             background: #0F0F0F;
             border-bottom-right-radius: 10px;
@@ -248,8 +269,8 @@
 
         /* Header Bar */
         .header-bar {
-            width: 430px;
-            height: 123px;
+            width: 100%;
+            height: var(--header-height);
             left: 0px;
             top: 0px;
             position: absolute;
@@ -258,11 +279,12 @@
 
         /* Get Invoice Button */
         .get-invoice-btn {
-            width: 381px;
-            height: 58px;
+            width: min(var(--button-width), calc(100% - 50px));
+            height: var(--button-height);
             padding: 10px;
-            left: 25px;
-            top: 817px;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: calc(var(--header-height) - 50px);
             position: absolute;
             background: #1C1C1C;
             border-radius: 15px;
@@ -276,19 +298,18 @@
 
         .get-invoice-btn:hover {
             background: #2d2d2d;
-            transform: translateY(-2px);
+            transform: translateX(-50%) translateY(-2px);
         }
 
         .get-invoice-btn:active {
-            transform: translateY(0);
+            transform: translateX(-50%) translateY(0);
         }
 
         .btn-text {
             text-align: center;
             color: #F7F7F7;
-            font-size: 18px;
-             font-family: 'RoundedPixel';
-            src: url('RoundedPixel7-DpRx.ttf') format('truetype');
+            font-size: clamp(16px, 4vw, 18px);
+            font-family: 'RoundedPixel', 'JetBrains Mono', monospace;
             font-style: normal;
             font-weight: 400;
             line-height: 18px;
@@ -297,6 +318,74 @@
         .get-invoice-btn.hidden {
             opacity: 0;
             pointer-events: none;
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 431px) and (max-width: 768px) {
+            :root {
+                --scale: 1.2;
+            }
+            
+            .container {
+                max-width: 516px;
+            }
+        }
+
+        /* Desktop adjustments */
+        @media (min-width: 769px) {
+            :root {
+                --scale: 1.3;
+                --printer-width: 450px;
+                --slot-width: 384px;
+                --receipt-width: 348px;
+                --receipt-height: 527px;
+                --button-width: 450px;
+            }
+            
+            .container {
+                max-width: 516px;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* Small mobile adjustments */
+        @media (max-width: 375px) {
+            :root {
+                --printer-width: 340px;
+                --slot-width: 290px;
+                --receipt-width: 262px;
+                --receipt-height: 397px;
+                --button-width: 340px;
+                --button-height: 52px;
+                --header-height: 100px;
+            }
+
+            .receipt-content {
+                gap: 8px;
+            }
+
+            .receipt-logo {
+                width: 85px;
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                height: 100vh;
+            }
+            
+            :root {
+                --header-height: 60px;
+                --printer-top-height: 50px;
+                --printer-bottom-height: 35px;
+                --receipt-height: 300px;
+            }
+
+            .get-invoice-btn {
+                bottom: 20px;
+            }
         }
     </style>
 </head>
@@ -310,10 +399,10 @@
         <div class="receipt" id="receipt">
             <div class="receipt-inner">
                 <div class="receipt-content">
-                    <!-- Logo SVG (Replace ELSARIHAN title) -->
+                    <!-- Logo SVG -->
                     <svg class="receipt-logo" viewBox="0 0 129.81 54.77" xmlns="http://www.w3.org/2000/svg">
                         <g>
-                            <path fill="#fef2e0" d="M129.28,15.02c1.11,2.87.44,4.76-1.92,6.52-2.33.72-4.18,2.88-6.78,2.98.99.33,1.64.23,2.39.83.75,1.03,2.09,1.31,3.03,2.05,1.46,1.15,1.19,3.3.34,4.69-.59.96-1.16,1.66-2.37,1.67-.54,0-1,.37-1.43.48-1.02.25-2.01.05-3.1-.08l-2.87-.35c-.68-.71-1.49-1.46-1.87-2.52-1.96,1.15-2.8,2.35-4.81,3.07.15.69.95,1.02,1.05,1.64.45,2.77.45,6.53-1.69,8.6-.57.56-1.52.02-2.15-.03-1.51-.12-2.68-.86-3.16-2.34-1.37-4.16-1.74-2.17-1.14-7.65-2.66-.45-1.85.24-3.2,1.28-.82.63-1.38,1.41-1.99,2.27-1.16,1.62-3.28,2.56-5.24,1.61-1.24-.6-2.24-2.39-1.97-3.77.31-1.57,1.05-2.89,1.66-4.28.53-1.21,1.54-2.01,2.68-2.47-1.29-1.62-1.62-3.56-1.72-5.6-.04-.78-3.12.24-6.91-1.49-2.35-1.08-.73-4.46.11-5.16,2.81-2.34,4.25-3.56,7.92-1.84.64-2.20,2.14-3.79,4.16-5.08-1.64-1.85-2.68-3.55-1.2-5.9.69-1.09,1.94-2.2,3.38-1.75,3.39,1.05,3.67,1.41,5.03,5.48,4.68.82,1.83-1.77,6.44-4.96.75-.52,1.34-1.28,2.26-1.60,1.75-.61,3.68.25,4.49,2.1.57,1.3.44,3.39-.4,4.58l-2.63,3.74,1.53,2.09c4.28-1.52,8.73-1.95,12.06,1.19ZM107.58,32.63c2.85-.62,5.31-1.87,7.15-4.24.57.61,3.54,2.42,3.99,2.5.93.17,3.64,2.67,5.31,1.44-.19.14.82-1.24-.55-2.45-2.45-2.17-1.9-1.38-3.15-2.3s-2.8-.95-4.17-1.54c.55-1.34.86-2.64.93-4.02,4.26-.61,6.74-.93,10.55-2.98.34-.19.47-.73.39-.97-.07-.20-.37-.52-.71-.51-7.49.34-6.62,1.35-9.43,1.68-.21.02-.37.36-.52.29-.15-.07-.47-.17-.52-.41-.60-2.71-2.08-4.98-4.40-6.73,1.62-1.98,3.51-4.43,4.14-6.79.15-.58-.21-.92-.63-1.11-1.79-.81-4.68,5.39-5.50,6.75-2.12-.87-4.20-1.16-6.38-.81-.63-1.99-1.66-3.55-2.78-5.19-.40-.59-1.20-.98-1.82-.43-1.76,1.55.24,5.17.98,6.89-2.45,1.42-4.22,3.53-5.13,6.18-.86.20-1.59-.30-2.43-.39-1.31-.14-5.12-.02-5.47,1.22-.10.34-.06.78.23,1.06,1.99,1.92,4.45,1.34,7.09,2,.06,2.97,1.28,5.58,3.31,7.70-1.03,1.54-6.29,6.18-5.22,7.62.94,1.26,3.08-.33,4-1.29,1.03-1.06,1.84-2.18,2.79-3.36,1.64-2.05.84-.27,5.35.21.14,1.58.31,2.88.36,4.33.04,1.17.29,2.29.40,3.44.06.70.37,1.05.98,1.27,2.84,1.01,1.51-7.25.85-9.07Z"/>
+                            <path fill="#fef2e0" d="M129.28,15.02c1.11,2.87.44,4.76-1.92,6.52-2.33.72-4.18,2.88-6.78,2.98.99.33,1.64.23,2.39.83.75,1.03,2.09,1.31,3.03,2.05,1.46,1.15,1.19,3.3.34,4.69-.59.96-1.16,1.66-2.37,1.67-.54,0-1,.37-1.43.48-1.02.25-2.01.05-3.1-.08l-2.87-.35c-.68-.71-1.49-1.46-1.87-2.52-1.96,1.15-2.8,2.35-4.81,3.07.15.69.95,1.02,1.05,1.64.45,2.77.45,6.53-1.69,8.6-.57.56-1.52.02-2.15-.03-1.51-.12-2.68-.86-3.16-2.34-1.37-4.16-1.74-2.17-1.14-7.65-2.66-.45-1.85.24-3.2,1.28-.82.63-1.38,1.41-1.99,2.27-1.16,1.62-3.28,2.56-5.24,1.61-1.24-.6-2.24-2.39-1.97-3.77.31-1.57,1.05-2.89,1.66-4.28.53-1.21,1.54-2.01,2.68-2.47-1.29-1.62-1.62-3.56-1.72-5.6-.04-.78-3.12.24-6.91-1.49-2.35-1.08-.73-4.46.11-5.16,2.81-2.34,4.25-3.56,7.92-1.84.64-2.20,2.14-3.79,4.16-5.08-1.64-1.85-2.68-3.55-1.2-5.9.69-1.09,1.94-2.20,3.38-1.75,3.39,1.05,3.67,1.41,5.03,5.48,4.68.82,1.83-1.77,6.44-4.96.75-.52,1.34-1.28,2.26-1.60,1.75-.61,3.68.25,4.49,2.10.57,1.30.44,3.39-.4,4.58l-2.63,3.74,1.53,2.09c4.28-1.52,8.73-1.95,12.06,1.19ZM107.58,32.63c2.85-.62,5.31-1.87,7.15-4.24.57.61,3.54,2.42,3.99,2.5.93.17,3.64,2.67,5.31,1.44-.19.14.82-1.24-.55-2.45-2.45-2.17-1.9-1.38-3.15-2.3s-2.8-.95-4.17-1.54c.55-1.34.86-2.64.93-4.02,4.26-.61,6.74-.93,10.55-2.98.34-.19.47-.73.39-.97-.07-.20-.37-.52-.71-.51-7.49.34-6.62,1.35-9.43,1.68-.21.02-.37.36-.52.29-.15-.07-.47-.17-.52-.41-.60-2.71-2.08-4.98-4.40-6.73,1.62-1.98,3.51-4.43,4.14-6.79.15-.58-.21-.92-.63-1.11-1.79-.81-4.68,5.39-5.50,6.75-2.12-.87-4.20-1.16-6.38-.81-.63-1.99-1.66-3.55-2.78-5.19-.40-.59-1.20-.98-1.82-.43-1.76,1.55.24,5.17.98,6.89-2.45,1.42-4.22,3.53-5.13,6.18-.86.20-1.59-.30-2.43-.39-1.31-.14-5.12-.02-5.47,1.22-.10.34-.06.78.23,1.06,1.99,1.92,4.45,1.34,7.09,2,.06,2.97,1.28,5.58,3.31,7.70-1.03,1.54-6.29,6.18-5.22,7.62.94,1.26,3.08-.33,4-1.29,1.03-1.06,1.84-2.18,2.79-3.36,1.64-2.05.84-.27,5.35.21.14,1.58.31,2.88.36,4.33.04,1.17.29,2.29.40,3.44.06.70.37,1.05.98,1.27,2.84,1.01,1.51-7.25.85-9.07Z"/>
                             <path fill="#d9a147" d="M107.58,32.63c.66,1.82,1.99,10.08-.85,9.07-.61-.22-.92-.57-.98-1.27-.11-1.15-.36-2.27-.40-3.44-.05-1.45-.22-2.75-.36-4.33-4.51-.47-3.71-2.25-5.35-.21-.95,1.18-1.76,2.30-2.79,3.36-.93.96-3.07,2.56-4,1.29-1.07-1.44,4.19-6.08,5.22-7.62-2.02-2.12-3.25-4.73-3.31-7.70-2.64-.66-5.11-.07-7.09-2-.29-.28-.32-.71-.23-1.06.35-1.24,4.16-1.36,5.47-1.22.84.09,1.57.59,2.43.39.91-2.66,2.68-4.76,5.13-6.18-.74-1.72-2.74-5.34-.98-6.89.62-.55,1.42-.16,1.82.43,1.11,1.64,2.15,3.20,2.78,5.19,2.18-.35,4.26-.06,6.38.81.81-1.36,3.70-7.56,5.50-6.75.42.19.78.53.63,1.11-.62,2.36-2.51,4.82-4.14,6.79,2.32,1.75,3.79,4.01,4.40,6.73.05.23.37.34.52.41.15.07.31-.27.52-.29,2.81-.33,1.94-1.35,9.43-1.68.33-.02.63.30.71.51.08.23-.05.78-.39.97-3.80,2.05-6.28,2.38-10.55,2.98-.07,1.37-.38,2.68-.93,4.02,1.37.59,2.95.65,4.17,1.54s.70.13,3.15,2.30c1.37,1.21.36,2.59.55,2.45-1.67,1.23-4.37-1.27-5.31-1.44-.45-.08-3.42-1.90-3.99-2.50-1.84,2.37-4.30,3.62-7.15,4.24Z"/>
                             <path fill="#fff4e2" d="M13.39,31.36c-4.51-.41-8.82-2.22-11.57-6.25-.99-1.45-.95-4.30.33-5.50,2.86-2.71,6.75-3.18,10.48-2.94.60-.63,2.41-6,2.76-6.38,2.67-2.90,6.58-3.42,9.90-2s5.58,4.59,5.77,8.57c.31,6.54-.26,9,1.82,15.66-3.09-.85-6-1.12-9.07-.86-3.56.31-6.88.01-10.42-.31Z"/>
                             <path fill="#d43129" d="M10.93,19.85l1.44-.39c1.33-.32,1.48-.70,2.15-.62.73.05,1.28-.09,1.06-.79-.06-1.98.88-3.95,2.09-5,1.84-1.59,4.10-2.04,6.19-.93,2.31,1.23,3.31,3.93,3.30,6.50-.04,7.21,2.08,7.36,2.70,10.19.21.97-3.02.75-3.97.56-6.07-1.24-11.03.09-15.95-2.34-1.26-.62-2.39-1.97-2.21-3.36.27-2.08,1.54-3.28,3.20-3.83Z"/>
@@ -350,7 +439,7 @@
                         <span>ARTIST</span>
                     </div>
 
-                    <!-- Clickable links (ONLY these 3) -->
+                    <!-- Clickable links -->
                     <div class="items-list">
                         <a href="portfolio.html" class="item-row">
                             <span>PORTFOLIO</span>
@@ -411,25 +500,36 @@
     <script>
         const receipt = document.getElementById('receipt');
         const btn = document.getElementById('getInvoiceBtn');
+        const container = document.querySelector('.container');
         
         let isDragging = false;
         let startX = 0;
         let startY = 0;
         let currentTop = -500;
-        let currentLeft = 68;
+        let currentLeft = 0;
         let isPrinted = false;
 
-        // Animation curves from Figma: 0.25, 0, 0.8, 1 with 1000ms
+        // Animation curves from Figma
         const easing = 'cubic-bezier(0.25, 0, 0.8, 1)';
+        
+        // Get the receipt print position dynamically
+        function getPrintPosition() {
+            const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height'));
+            const printerTopHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--printer-top-height'));
+            const slotHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slot-height'));
+            return headerHeight + printerTopHeight - slotHeight;
+        }
         
         // Click button to start printing
         btn.addEventListener('click', () => {
             isPrinted = true;
             btn.classList.add('hidden');
             
+            const printPos = getPrintPosition();
             receipt.style.transition = `top 1s ${easing}`;
-            receipt.style.top = '177px';
-            currentTop = 177;
+            receipt.style.top = printPos + 'px';
+            currentTop = printPos;
+            currentLeft = 0;
         });
 
         // Drag functionality
@@ -445,8 +545,12 @@
             
             startX = clientX;
             startY = clientY;
-            currentTop = parseInt(receipt.style.top) || 177;
-            currentLeft = parseInt(receipt.style.left) || 68;
+            currentTop = parseInt(receipt.style.top) || getPrintPosition();
+            
+            // Get current transform translateX value
+            const style = window.getComputedStyle(receipt);
+            const matrix = new DOMMatrix(style.transform);
+            currentLeft = matrix.m41; // translateX value
         }
 
         function handleMove(e) {
@@ -464,7 +568,7 @@
             const newLeft = currentLeft + deltaX;
             
             receipt.style.top = newTop + 'px';
-            receipt.style.left = newLeft + 'px';
+            receipt.style.transform = `translateX(calc(-50% + ${newLeft}px))`;
         }
 
         function handleEnd(e) {
@@ -475,50 +579,51 @@
             receipt.style.transition = `all 1s ${easing}`;
             
             const finalTop = parseInt(receipt.style.top);
-            const finalLeft = parseInt(receipt.style.left);
+            const style = window.getComputedStyle(receipt);
+            const matrix = new DOMMatrix(style.transform);
+            const finalLeft = matrix.m41;
             
-            const horizontalDistance = Math.abs(finalLeft - 68);
-            const verticalDistance = finalTop - 177;
+            const printPos = getPrintPosition();
+            const horizontalDistance = Math.abs(finalLeft);
+            const verticalDistance = finalTop - printPos;
             
             // If swiped left or right significantly, dismiss
             if (horizontalDistance > 100) {
-                if (finalLeft > 68) {
-                    receipt.style.left = '1000px';
+                if (finalLeft > 0) {
+                    receipt.style.transform = 'translateX(1000px)';
                 } else {
-                    receipt.style.left = '-1000px';
+                    receipt.style.transform = 'translateX(-1000px)';
                 }
                 
                 setTimeout(() => {
-                    receipt.style.transition = 'none';
-                    receipt.style.top = '-500px';
-                    receipt.style.left = '68px';
-                    btn.classList.remove('hidden');
-                    isPrinted = false;
-                    currentTop = -500;
-                    currentLeft = 68;
+                    resetReceipt();
                 }, 1000);
             }
             // If dragged down significantly, dismiss downward
-            else if (verticalDistance > 223) {
+            else if (verticalDistance > 150) {
                 receipt.style.top = '1000px';
                 
                 setTimeout(() => {
-                    receipt.style.transition = 'none';
-                    receipt.style.top = '-500px';
-                    receipt.style.left = '68px';
-                    btn.classList.remove('hidden');
-                    isPrinted = false;
-                    currentTop = -500;
-                    currentLeft = 68;
+                    resetReceipt();
                 }, 1000);
             }
             // Otherwise snap back to position
             else {
-                receipt.style.top = '177px';
-                receipt.style.left = '68px';
-                currentTop = 177;
-                currentLeft = 68;
+                receipt.style.top = printPos + 'px';
+                receipt.style.transform = 'translateX(-50%)';
+                currentTop = printPos;
+                currentLeft = 0;
             }
+        }
+
+        function resetReceipt() {
+            receipt.style.transition = 'none';
+            receipt.style.top = '-500px';
+            receipt.style.transform = 'translateX(-50%)';
+            btn.classList.remove('hidden');
+            isPrinted = false;
+            currentTop = -500;
+            currentLeft = 0;
         }
 
         // Mouse events
@@ -530,6 +635,19 @@
         receipt.addEventListener('touchstart', handleStart, { passive: false });
         document.addEventListener('touchmove', handleMove, { passive: false });
         document.addEventListener('touchend', handleEnd);
+
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (isPrinted) {
+                    const printPos = getPrintPosition();
+                    receipt.style.top = printPos + 'px';
+                    currentTop = printPos;
+                }
+            }, 100);
+        });
     </script>
 </body>
 </html>
