@@ -503,11 +503,16 @@
         const container = document.querySelector('.container');
         
         let isDragging = false;
+        let hasMoved = false;
         let startX = 0;
         let startY = 0;
         let currentTop = -500;
         let currentLeft = 0;
         let isPrinted = false;
+        let clickedOnLink = false;
+        
+        // Movement threshold to distinguish click from drag (in pixels)
+        const DRAG_THRESHOLD = 10;
 
         // Animation curves from Figma
         const easing = 'cubic-bezier(0.25, 0, 0.8, 1)';
@@ -532,13 +537,33 @@
             currentLeft = 0;
         });
 
+        // Prevent drag when clicking on links
+        const links = receipt.querySelectorAll('.item-row');
+        links.forEach(link => {
+            link.addEventListener('mousedown', (e) => {
+                clickedOnLink = true;
+            });
+            link.addEventListener('touchstart', (e) => {
+                clickedOnLink = true;
+            });
+        });
+
         // Drag functionality
         function handleStart(e) {
             if (!isPrinted) return;
             
+            // Reset flags
+            hasMoved = false;
+            clickedOnLink = false;
+            
+            // Check if clicked on a link
+            const target = e.target.closest('.item-row');
+            if (target) {
+                clickedOnLink = true;
+                return;
+            }
+            
             isDragging = true;
-            receipt.classList.add('active');
-            receipt.style.transition = 'none';
             
             const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
             const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
@@ -555,14 +580,30 @@
 
         function handleMove(e) {
             if (!isDragging) return;
-            
-            e.preventDefault();
+            if (clickedOnLink) return;
             
             const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
             const clientY = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
             
             const deltaX = clientX - startX;
             const deltaY = clientY - startY;
+            
+            // Check if movement exceeds threshold
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            
+            if (!hasMoved && distance < DRAG_THRESHOLD) {
+                // Haven't moved enough yet, don't start dragging
+                return;
+            }
+            
+            // Now we're actually dragging
+            if (!hasMoved) {
+                hasMoved = true;
+                receipt.classList.add('active');
+                receipt.style.transition = 'none';
+            }
+            
+            e.preventDefault();
             
             const newTop = Math.max(100, currentTop + deltaY);
             const newLeft = currentLeft + deltaX;
@@ -572,10 +613,22 @@
         }
 
         function handleEnd(e) {
+            if (clickedOnLink) {
+                clickedOnLink = false;
+                isDragging = false;
+                return;
+            }
+            
             if (!isDragging) return;
             
             isDragging = false;
             receipt.classList.remove('active');
+            
+            // If we never actually moved, just return (it was a click)
+            if (!hasMoved) {
+                return;
+            }
+            
             receipt.style.transition = `all 1s ${easing}`;
             
             const finalTop = parseInt(receipt.style.top);
@@ -624,6 +677,7 @@
             isPrinted = false;
             currentTop = -500;
             currentLeft = 0;
+            hasMoved = false;
         }
 
         // Mouse events
